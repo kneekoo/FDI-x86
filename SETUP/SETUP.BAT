@@ -480,9 +480,7 @@ goto Done
 REM configure target CPU
 set TCPU=8086
 vinfo /M
-REM vinfo detects some real hardware at lower machine level, if not overridden
-REM assume anythine lower than a 386 is wrong.
-if "%OCPU%" == "" goto Assume386orBetter
+if "%OCPU%" == "" goto NoOverrideCPU
 verrlvl 0
 set TCPU=%OCPU%
 if "%TCPU%" == "DBX" verrlvl 101
@@ -497,11 +495,6 @@ if "%TCPU%" == "386" verrlvl 3
 if "%TCPU%" == "286" verrlvl 2
 if "%TCPU%" == "186" verrlvl 1
 if "%TCPU%" == "8086" verrlvl 0
-goto NoOverrideCPU
-
-:Assume386orBetter
-if errorlevel 3 goto NoOverrideCPU
-verrlvl 3
 
 :NoOverrideCPU
 if errorlevel 1 set TCPU=186
