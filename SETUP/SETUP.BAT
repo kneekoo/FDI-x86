@@ -547,7 +547,7 @@ for %%i in (0 1 2 3 4 5) do vecho /n /g /T %LANGFILE% WELCOME_%%i %OS_NAME% %OS_
 
 vecho /g /n /T %LANGFILE% CONTINUE
 if "%AUTOMATIC%" == "yes" call %XBAT% YES
-if "%AUTOMATIC%" == "no"  vask /c /g /fGray /T %LANGFILE% PROMPT_YESNO
+if "%AUTOMATIC%" == "no"  vask /c /g /fGray /s /T %LANGFILE% PROMPT_YESNO
 if errorlevel 2 goto UserAbortExit
 
 vecho /g
@@ -618,7 +618,7 @@ rem vecho /g /r2 /c32 /T %LANGFILE% SUCCESS
 vecho /g /T %LANGFILE% PARTITION_DONE
 vecho /g /n /T %LANGFILE% REBOOT
 if "%AUTOMATIC%" == "yes" call %XBAT% YES
-if "%AUTOMATIC%" == "no"  vask /c /g /fGray /T %LANGFILE% PROMPT_YESNO
+if "%AUTOMATIC%" == "no"  vask /c /g /fGray /s /T %LANGFILE% PROMPT_YESNO
 if errorlevel 2 goto UserAbortExit
 
 vecho /g /n /fBlack /e
@@ -650,13 +650,13 @@ if "%ADVANCED%" == "yes" goto FormatAdvanced
 :FormatNormal
 vecho /g /n /p /T %LANGFILE% FORMAT_DEF %TDRIVE%
 if "%AUTOMATIC%" == "yes" call %XBAT% YES
-if "%AUTOMATIC%" == "no"  vask /c /g /fGray /T %LANGFILE% PROMPT_YESNO
+if "%AUTOMATIC%" == "no"  vask /c /g /fGray /s /T %LANGFILE% PROMPT_YESNO
 if errorlevel 2 goto UserAbortExit
 goto FormatQuick
 
 :FormatAdvanced
 vecho /g /n /p /T %LANGFILE% FORMAT_ADV %TDRIVE%
-vask /c /g /fGray /T %LANGFILE% PROMPT_FMT
+vask /c /g /fGray /s /T %LANGFILE% PROMPT_FMT
 if errorlevel 3 goto UserAbortExit
 if errorlevel 2 goto FormatQuick
 
@@ -755,7 +755,7 @@ if "%AUTOMATIC%" == "yes" goto TargetDone
 if "%ADVANCED%" == "no" goto TargetDone
 
 vecho /g/p/n /T %LANGFILE% CHANGE_PATH %TDOSDIR%
-vask /c /g /fGray /T %LANGFILE% PROMPT_YESNO
+vask /c /g /fGray /s /T %LANGFILE% PROMPT_YESNO
 if errorlevel 2 goto TargetDone
 goto SetTarget
 
@@ -786,7 +786,7 @@ goto BackupDone
 if not "%TMODE%" == "" goto BackupSet
 vecho /g /p /n /T %LANGFILE% BACKUP_OLD %TDRIVE%
 if "%AUTOMATIC%" == "yes" call %XBAT% YES
-if "%AUTOMATIC%" == "no"  vask /c /g /fGray /T %LANGFILE% PROMPT_YESNO
+if "%AUTOMATIC%" == "no"  vask /c /g /fGray /s /T %LANGFILE% PROMPT_YESNO
 if errorlevel 2 goto BackupDisable
 
 :BackupSet
@@ -826,7 +826,7 @@ if "%ADVANCED%" == "no" goto NoAdvOptions
 if "%PREVOS%" == "no" goto PrevOSDone
 if not exist %TDOSDIR%\nul goto PrevOSDone
 vecho /g /p /n /T %LANGFILE% DELETE_OLD %TDOSDIR%
-vask /c /g /fGray /T %LANGFILE% PROMPT_YESNO
+vask /c /g /fGray /s /T %LANGFILE% PROMPT_YESNO
 if errorlevel 2 goto PrevOSDone
 set PREVOS=delete
 :PrevOSDone
@@ -834,7 +834,7 @@ set PREVOS=delete
 if "%TCPU%" == "DOSBox" goto NoForceMBR
 rem Force an update to the MBR?
 vecho /g /p /n /T %LANGFILE% FORCE_MBR %TDRIVE%
-vask /c /g /fGray /T %LANGFILE% PROMPT_YESNO
+vask /c /g /fGray /s /T %LANGFILE% PROMPT_YESNO
 if errorlevel 2 goto NoForceMBR
 set FORCEMBR=yes
 goto ForceMBRDone
@@ -844,14 +844,14 @@ set FORCEMBR=no
 
 rem Transfer System Files?
 vecho /g /p /n /T %LANGFILE% SYS_FILES %TDRIVE%
-vask /c /g /fGray /T %LANGFILE% PROMPT_YESNO
+vask /c /g /fGray /s /T %LANGFILE% PROMPT_YESNO
 if not errorlevel 2 goto SYSFILESDone
 set SYSFILES=no
 :SYSFILESDone
 
 rem Update Config Files?
 vecho /g /p /n /T %LANGFILE% CFG_FILES %TDRIVE%
-vask /c /g /fGray /T %LANGFILE% PROMPT_YESNO
+vask /c /g /fGray /s /T %LANGFILE% PROMPT_YESNO
 if not errorlevel 2 goto CFGFILESDone
 set CFGFILES=no
 :CFGFILESDone
@@ -922,7 +922,7 @@ if "%TMODE%" == "MBR" goto DoMBROnly
 vecho /g /T %LANGFILE% INSTALL_NOW %OS_NAME% %OS_VERSION%
 vecho /g /n /T %LANGFILE% CONTINUE
 if "%AUTOMATIC%" == "yes" call %XBAT% YES
-if "%AUTOMATIC%" == "no"  vask /c /g /fGray /T %LANGFILE% PROMPT_YESNO
+if "%AUTOMATIC%" == "no"  vask /c /g /fGray /s /T %LANGFILE% PROMPT_YESNO
 if errorlevel 2 goto UserAbortExit
 
 vecho /g /p /T %LANGFILE% HRULE
@@ -1031,7 +1031,7 @@ goto DoMBRUpdate
 :DoMBROnly
 vecho /g /n /T %LANGFILE% FORCE_MBR %TDRIVE%
 if "%AUTOMATIC%" == "yes" call %XBAT% YES
-if "%AUTOMATIC%" == "no"  vask /c /g /fGray /T %LANGFILE% PROMPT_YESNO
+if "%AUTOMATIC%" == "no"  vask /c /g /fGray /s /T %LANGFILE% PROMPT_YESNO
 if errorlevel 2 goto UserAbortExit
 
 :DoMBRUpdate
@@ -1183,7 +1183,7 @@ vecho /g /p /T %LANGFILE% HRULE
 vecho /g /p /T %LANGFILE% DONE_NOW %OS_NAME% %OS_VERSION%
 vecho /g /p /n /T %LANGFILE% REBOOT_NOW
 if "%AUTOMATIC%" == "yes" call %XBAT% YES
-if "%AUTOMATIC%" == "no"  vask /c /g /fGray /T %LANGFILE% PROMPT_YESNO
+if "%AUTOMATIC%" == "no"  vask /c /g /fGray /s /T %LANGFILE% PROMPT_YESNO
 set TDONE=REBOOT
 if errorlevel 2 set TDONE=CMD
 
